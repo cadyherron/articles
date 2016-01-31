@@ -1,0 +1,7 @@
+<%= @article.title %> :  
+<%= @article.body %>
+
+
+<%= link_to "Back to all articles", articles_path %>
+<%= link_to "Edit this article", edit_article_path(@article) %>
+<%= link_to "Delete this article", article_path(@article), method: :delete %>

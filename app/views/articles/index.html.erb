@@ -1,0 +1,5 @@
+<h5>Here are your articles:</h5>
+
+<% @articles.each do |article| %>
+  <%= render partial: 'article', locals: { article: article } %>
+<% end %>
