@@ -17,10 +17,13 @@ class ArticlesController < ApplicationController
     @article = Article.new(whitelisted_article_params)
     if @article.save
       flash[:success] = "Article #{@article.id} successfully created"
+      # redirect_to article_path(@article)
+      redirect_to @article
     else
-      flash[:error] = "Article #{@article.id} was not created"
+      flash.now[:error] = "Article #{@article.id} was not created"
+      render :new
     end
-    redirect_to article_path(@article)
+
   end
 
 
@@ -32,17 +35,22 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     if @article.update(whitelisted_article_params)
       flash[:success] = "Article #{@article.id} successfully saved"
+      redirect_to @article
     else
       flash[:error] = "Article #{@article.id} was not saved"
+      render :edit
     end
-    redirect_to article_path(@article)
   end
 
 
   def destroy
     @article = Article.find(params[:id])
-    @article.destroy
-    redirect_to articles_path
+    if @article.destroy
+      flash[:success] = "Article #{@article.id} deleted"
+      redirect_to articles_path
+    else
+      flash.now[:error] = "Article #{@article.id} was not deleted."
+      render :show
   end
 
 
